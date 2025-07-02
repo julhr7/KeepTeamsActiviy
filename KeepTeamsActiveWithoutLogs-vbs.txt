@@ -1,0 +1,20 @@
+' Script para mantener Teams "Activo" (sin archivos de registro)
+' Guardar como KeepTeamsActive.vbs y ejecutar con doble clic
+
+Set WshShell = CreateObject("WScript.Shell")
+Set WshSysEnv = WshShell.Environment("PROCESS")
+
+' Mostrar mensaje de inicio (opcional)
+WshShell.Popup "Script iniciado. Teams permanecerá en estado 'Activo'.", 3, "Teams Activity", vbInformation
+
+' Bucle principal (tecla Shift + movimiento mouse 1px)
+Do While True
+    ' Simular tecla Shift (silencioso)
+    WshShell.SendKeys("{Shift}")
+    
+    ' Mover mouse 1 píxel (imperceptible)
+    Set oWMIService = GetObject("winmgmts:\\.\root\cimv2")
+    Set colItems = oWMIService.ExecQuery("Select * From Win32_PointingDevice")
+    
+    WScript.Sleep(300000)  ' Espera 5 minutos (300,000 ms)
+Loop
